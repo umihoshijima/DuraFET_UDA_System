@@ -10,9 +10,9 @@ This adaptation is conducted under the original [Attribution 4.0 International C
 
 ### Hardware Requirements
 
-* **Computer**: This can be run on any hardware that can run Python 3, but was tested on a Thinkpad A475 running Windows 10. The computer must also have an ethernet port, or some other way of connecting to the same network as the UDA's. 
+* **Computer**: This can be run on any hardware that can run Python 3, but was tested on a Thinkpad A475 running Windows 10. The computer must also have a way of connecting to the same network as the UDA's (e.g. ethernet port for hardline connection). If you are setting up a local hardwired network for the UDA's, having both wifi and ethernet capabilities on the computer will allow you to still access the internet on a wifi network at the same time as running the UDA's off of the ethernet port.
 
-* **UDA's**: This software can be used to monitor any TCP/Modbus communications, but has been written with the Honeywell UDA2182 in mind. Our units were fitted with the Communications card, as well as two pH cards for reading directly from DuraFET III probes. This UDA configuration is identical to that described in Kapsenberg et al (2017). 
+* **UDA's**: This software can be used to monitor any TCP/Modbus communications, but has been written with the Honeywell UDA2182 in mind (IEEE 32-bit floating point big endian). Our units were fitted with the communications card, as well as two pH cards for reading directly from DuraFET III probes. This UDA configuration is identical to that described in Kapsenberg et al (2017). 
 
 * **Networking**: As detailed in the reference paper, the computer can be connected directly to a single UDA with a crossover Ethernet cable. However, with most computers having only one ethernet port, connecting multiple UDA's could easily be accomplished using any ethernet switch. 
 
