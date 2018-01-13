@@ -22,6 +22,18 @@ This adaptation is conducted under the original [Attribution 4.0 International C
 
 * **Python**: This code is written for Python 3, and will not run on Python 2. Dependencies are stated at the beginning of the main script, and can be simply installed using `pip` or `easy_install` before running the scripts.
 
+
+
+## Setup
+
+1. Your computer should be set up with a static IP address under IPv4. You'll want to set this up with the same network address (first 2 sets of numbers) as the UDA if you want to also have the computer hooked up to wifi. Make sure that this is different from the network address on the IP address issued by your wireless network (`ipconfig` on windows, `ifconfig` on Mac/Linux). Given the default UDA IP address of `192.168.1.254`, I set our computer up to `192.168.1.50`. I found that turning of IPv6 can help as well, but may not be necessary. Subnet mask....
+
+2. UDA's can be kept with default settings, save for assigning unique IP addresses.
+
+3. After hooking up UDA's to the network, test the IP addresses by pinging them from the computer (`ping 192.168.1.254` for Windows/Mac/Linux, replace IP address with that of each UDA). You should get a response from every UDA's IP before starting up the script - otherwise you have a network connection problem. 
+
+4. Run script, currently set up for a single UDA and set up to output a single set of pH/temperature. More to follow! 
+
 ## To Do: 
 
 * Continue writing "setup" portion of `readme`
