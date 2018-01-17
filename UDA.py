@@ -1,14 +1,25 @@
+##### These are the variables you can change:
+
+DELAY_MIN = 0.5 #TIME interval, in minutes.
+UDA_1_IP = '192.168.1.254'  #IP address of a single durafet.
+FILE_NAME = 'test.csv' # This is the name of the file.
+# Note that this makes a file in the same folder as the script.
+# If this is not desired, use relative or absolute paths under FILE_NAME.
+
+
+##########################
+
+# Import all dependencies. Use pip or easy_install first if these don't work.
 from pymodbus.client.sync import ModbusTcpClient
 import struct # used for the hex stuff
 import time  # used to pause script
 from datetime import datetime # used for current time
 import csv # for writing csv files: 
 # following the pandas tutorial here: https://pandas.pydata.org/pandas-docs/stable/10min.html#min
-
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-# https://github.com/riptideio/pymodbus
+
 
 # Much thanks to Stack Overflow commenter Nathan for this: 
 #https://stackoverflow.com/questions/48217264/python-converting-two-sequential-2-byte-registers-4-bytes-into-ieee-floating
@@ -16,30 +27,36 @@ def bigIntToFloat(bigIntlist):
 	pair = []
 	for bigInt in bigIntlist:
 		a = format(bigInt,'x')
+<<<<<<< HEAD
 		if len(a)<4:
 			a = "0"+a
+=======
+		while len(a)<4:
+            a = "0"+a  # Without preceding 0's, throwing errors.
+>>>>>>> bca77573634869d10d4b1e9da78b662e4a2f6bf7
 		pair.append(bytes.fromhex(a))
 		if len(pair) == 2:
 			yield struct.unpack('>f', b''.join(pair))[0]
 			pair = []
 
+
+
+
+
 fields = ['time', 'pH_1', 'temp_1', 'pH_2', 'temp_2']
-with open('test.csv', 'a') as f:
-	writer = csv.writer(f)
-	writer.writerow(fields)
-
-
-### Meat of the code starts here. 
-
+with open('FILE_NAME', 'a') as f:
+    writer = csv.writer(f)
+    writer.writerow(fields)
 
 
 
 while True: 
-	# connect to our modbus client
 	time_current = datetime.now()
-
-	client1 = ModbusTcpClient('192.168.1.254')
-	time.sleep(2) # just to make sure thing sare good
+    # Refer to this link for modbus resources.
+    # https://github.com/riptideio/pymodbus
+    # connect to our modbus client
+	client1 = ModbusTcpClient(UDA_1_IP)
+	time.sleep(1) # just to make sure things are well-marinated.
 
 	# These are the bytes that we want, the first 8:
 	a = client1.read_input_registers(0,8).registers
@@ -73,4 +90,4 @@ while True:
 
 	# close clients
 	client1.close()
-	time.sleep((60-time.localtime().tm_sec)%30) # run every 30 seconds
+	time.sleep( ((60 - time.localtime().tm_min - (time.localtime().tm_sec/60))%DELAY_MIN)*60) # run every 30 seconds

@@ -32,7 +32,7 @@ This adaptation is conducted under the original [Attribution 4.0 International C
 
 3. After hooking up UDA's to the network, test the IP addresses by pinging them from the computer (`ping 192.168.1.254` for Windows/Mac/Linux, replace IP address with that of each UDA). You should get a response from every UDA's IP before starting up the script - otherwise you have a network connection problem. 
 
-4. Run script, currently set up for a single UDA and set up to output a single set of pH/temperature. More to follow! 
+4. Run script, currently set up for a single UDA and set up to output a single set of pH/temperature. The instructions for editing the UDA variables are in the script. 
 
 ## To Do: 
 
@@ -40,7 +40,6 @@ This adaptation is conducted under the original [Attribution 4.0 International C
 * Connect to multiple UDA's (confirm in code)
 * Output to a .txt file every x minutes
 * Tweet, Slack, or Email the daily values, along with a plot
-
 
 
 
