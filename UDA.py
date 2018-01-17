@@ -1,8 +1,8 @@
 ##### These are the variables you can change:
 
-DELAY_MIN = 0.5 #TIME interval, in minutes.
+DELAY_MIN = 1 #TIME interval, in minutes.
 UDA_1_IP = '192.168.1.254'  #IP address of a single durafet.
-FILE_NAME = 'test.csv' # This is the name of the file.
+FILE_NAME = 'pH_data_loadedpHOx_20180117.csv' # This is the name of the file.
 # Note that this makes a file in the same folder as the script.
 # If this is not desired, use relative or absolute paths under FILE_NAME.
 
@@ -27,13 +27,8 @@ def bigIntToFloat(bigIntlist):
 	pair = []
 	for bigInt in bigIntlist:
 		a = format(bigInt,'x')
-<<<<<<< HEAD
-		if len(a)<4:
-			a = "0"+a
-=======
 		while len(a)<4:
-            a = "0"+a  # Without preceding 0's, throwing errors.
->>>>>>> bca77573634869d10d4b1e9da78b662e4a2f6bf7
+			a = "0"+a  # Without preceding 0's, throwing errors.
 		pair.append(bytes.fromhex(a))
 		if len(pair) == 2:
 			yield struct.unpack('>f', b''.join(pair))[0]
@@ -44,7 +39,7 @@ def bigIntToFloat(bigIntlist):
 
 
 fields = ['time', 'pH_1', 'temp_1', 'pH_2', 'temp_2']
-with open('FILE_NAME', 'a') as f:
+with open(FILE_NAME, 'a') as f:
     writer = csv.writer(f)
     writer.writerow(fields)
 
@@ -61,7 +56,7 @@ while True:
 	# These are the bytes that we want, the first 8:
 	a = client1.read_input_registers(0,8).registers
 	# Pull the registers off of them
-	print(a)
+
 	# this converts them into 32-bit floats
 	dat = bigIntToFloat(a)
 	
@@ -84,7 +79,7 @@ while True:
 
 
 	fields = [time_current.strftime('%Y-%m-%d %H:%M:%S'), pH_1, temp_1, pH_2, temp_2]
-	with open('test.csv', 'a') as f:
+	with open(FILE_NAME, 'a') as f:
 		writer = csv.writer(f)
 		writer.writerow(fields)
 
