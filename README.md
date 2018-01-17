@@ -37,8 +37,6 @@ This adaptation is conducted under the original [Attribution 4.0 International C
 ## To Do: 
 
 * Continue writing "setup" portion of `readme`
-* Connect to multiple UDA's (confirm in code)
-* Output to a .txt file every x minutes
 * Tweet, Slack, or Email the daily values, along with a plot
 
 
