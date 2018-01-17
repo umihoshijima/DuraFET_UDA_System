@@ -16,7 +16,7 @@ def bigIntToFloat(bigIntlist):
 	pair = []
 	for bigInt in bigIntlist:
 		a = format(bigInt,'x')
-		while len(a)<4:
+		if len(a)<4:
 			a = "0"+a
 		pair.append(bytes.fromhex(a))
 		if len(pair) == 2:
