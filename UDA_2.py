@@ -3,7 +3,7 @@
 DELAY_MIN = 1  # TIME interval, in minutes.
 UDA_1_IP = '192.168.1.254'  # IP address of a single UDA.
 UDA_2_IP = '192.168.1.244'  # IP address of a second UDA.
-FILE_NAME = 'pH_data_loadedpHOx_20180117.csv'  # This is the name of the file.
+FILE_NAME = 'loadedpHOx_2durafets_20180123.csv'  # This is the name of the file.
 # Note that this makes a file in the same folder as the script.
 # If this is not desired, use relative or absolute paths under FILE_NAME.
 
@@ -11,7 +11,7 @@ FILE_NAME = 'pH_data_loadedpHOx_20180117.csv'  # This is the name of the file.
 ##########################
 
 # Import all dependencies. Use pip or easy_install first if these don't work.
-import pymodbus.client.sync
+from pymodbus.client.sync import ModbusTcpClient
 import struct  # used for the hex stuff
 import time  # used to pause script
 from datetime import datetime  # used for current time
@@ -44,18 +44,28 @@ with open(FILE_NAME, 'a') as f:
     writer = csv.writer(f)
     writer.writerow(fields)
 
+client1 = ModbusTcpClient(UDA_1_IP)
+client2 = ModbusTcpClient(UDA_2_IP)
+
 while True:
     time_current = datetime.now()
     # Refer to this link for modbus resources.
     # https://github.com/riptideio/pymodbus
     # connect to our modbus client
-    client1 = ModbusTcpClient(UDA_1_IP)
-    client2 = ModbusTcpClient(UDA_2_IP)
-
-    time.sleep(1)  # just to make sure things are well-marinated.
+    time.sleep(5)  # just to make sure things are well-marinated.
+    a1 = client1.read_input_registers(0, 8).registers
+	# client1.close()
+      
+    time.sleep(5)
+    
+    time.sleep(5)  # just to make sure things are well-marinated.
+    a2 = client2.read_input_registers(0, 8).registers
+    #client2.close() 
+    
+    
 
     # These are the bytes that we want, the first 8:
-    a1 = client1.read_input_registers(0, 8).registers
+
     a2 = client2.read_input_registers(0, 8).registers
 
     # Pull the registers off of them
@@ -93,6 +103,5 @@ while True:
         writer.writerow(fields)
 
     # close clients
-    client1.close()
     time.sleep(
         ((60 - time.localtime().tm_min - (time.localtime().tm_sec / 60)) % DELAY_MIN) * 60)  # run x minutes...
